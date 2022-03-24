@@ -1,9 +1,16 @@
 import { getProviders, signIn } from 'next-auth/react'
 
 import React from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
-const Login = ({ providers }: any) => {
-  console.log('props in login page : ', providers)
+const Login = (props: any) => {
+  const { providers } = props
+  const { status } = useSession()
+  const router = useRouter()
+  if (status === 'authenticated') {
+    router.replace('/')
+  }
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black">
       <img
